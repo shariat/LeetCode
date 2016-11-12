@@ -46,3 +46,22 @@ class Solution(object):
             result += 1
             i = j
         return result
+
+# Greedy, sort by the right side coordinate
+class Solution2(object):
+    def findMinArrowShots(self, points):
+        """
+        :type points: List[List[int]]
+        :rtype: int
+        """
+        if not points:
+            return 0
+        points.sort(key=lambda x: (x[1], x[0]))
+        count = 1
+        last = points.pop(0)
+        while points:
+            point = points.pop(0)
+            if point[0] > last[1]:
+                last = point
+                count += 1
+        return count
