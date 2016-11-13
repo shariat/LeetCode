@@ -29,7 +29,7 @@ class Solution:
         result, path = [], []
         self.binaryTreePathsRecu(root, path, result)
         return result
-    
+
     def binaryTreePathsRecu(self, node, path, result):
         if node is None:
             return
@@ -49,3 +49,18 @@ class Solution:
             path.append(node)
             self.binaryTreePathsRecu(node.right, path, result)
             path.pop()
+
+class Solution2:
+    # @param {TreeNode} root
+    # @return {string[]}
+    def binaryTreePaths(self, root):
+        if not root:
+            return []
+        if root.left is root.right is None:
+            return [str(root.val)]
+        res = []
+        lp = self.binaryTreePaths(root.left)
+        rp = self.binaryTreePaths(root.right)
+        for p in (lp + rp):
+            res.append(str(root.val) + "->" + p)
+        return res
